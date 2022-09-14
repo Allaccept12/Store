@@ -24,9 +24,13 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    public Product(ProductId productId,Money price, String name) {
+    protected Product(ProductId productId,Money price, String name) {
         this.id = productId;
         this.price = price;
         this.name = name;
+    }
+
+    public static Product createProduct(ProductId productId, Money price, String name) {
+        return new Product(productId,price,name);
     }
 }
