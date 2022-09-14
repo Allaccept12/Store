@@ -4,8 +4,8 @@ package com.example.store.account.presentation;
 import com.example.store.account.application.LoginService;
 import com.example.store.account.dto.AccountLoginReq;
 import com.example.store.account.dto.AccountLoginRes;
+
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +29,7 @@ public class AccountLoginController {
                                    HttpServletRequest request) {
         AccountLoginRes account = loginService.login(req);
         HttpSession session = request.getSession();
-        session.setAttribute(session.getId(), account);
+        session.setAttribute("loginSession", account);
         return ResponseEntity.ok(account);
     }
 

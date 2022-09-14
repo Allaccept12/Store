@@ -1,9 +1,10 @@
 package com.example.store.common.error;
 
 
-import com.example.store.account.exception.AccountNotFoundException;
+import com.example.store.account.application.AccountNotFoundException;
 import com.example.store.account.exception.EmailDuplicationException;
 import com.example.store.account.exception.WrongPasswordException;
+import com.example.store.order.application.NotFoundProductException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,6 +23,19 @@ public class ExceptionHandlerController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected ErrorResponse handleAccountNotFoundException(AccountNotFoundException e) {
         final ErrorCode errorCode = ErrorCode.ACCOUNT_NOT_FOUND;
+        return ErrorResponse.builder().message(errorCode.getValue()).build();
+    }
+
+    @ExceptionHandler(value = {IllegalStateException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ErrorResponse handleIllegalStateException(IllegalStateException e) {
+        return ErrorResponse.builder().message(e.getMessage()).build();
+    }
+
+    @ExceptionHandler(value = {NotFoundProductException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ErrorResponse handleProductNotFoundException(NotFoundProductException e) {
+        final ErrorCode errorCode = ErrorCode.PRODUCT_NOT_FOUND;
         return ErrorResponse.builder().message(errorCode.getValue()).build();
     }
 

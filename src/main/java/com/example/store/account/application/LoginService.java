@@ -6,7 +6,6 @@ import com.example.store.account.domain.AccountRepository;
 import com.example.store.account.domain.Email;
 import com.example.store.account.dto.AccountLoginReq;
 import com.example.store.account.dto.AccountLoginRes;
-import com.example.store.account.exception.AccountNotFoundException;
 import com.example.store.account.exception.WrongPasswordException;
 import lombok.RequiredArgsConstructor;
 
@@ -18,12 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @Transactional(readOnly = true)
     public AccountLoginRes login(AccountLoginReq accountLoginReq) {
-        Account account = accountRepository.findByEmail(Email.of(accountLoginReq.getEmail()))
-                .orElseThrow(() -> new AccountNotFoundException(Email.of(accountLoginReq.getEmail())));
+        Account account = accountService.getAccount(Email.of(accountLoginReq.getEmail()));
+
         if (!account.checkPassword(accountLoginReq.getPassword())) {
             throw new WrongPasswordException();
         }

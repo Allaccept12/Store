@@ -24,10 +24,10 @@ spring:
     url: jdbc:h2:mem:storeDb;MODE=MySQL;
     username: sa
     password:
-#  sql:
-#    init:
-#      schema-locations: classpath:static/*.sql
-#      mode: always
+  sql:
+    init:
+      schema-locations: classpath:static/*.sql
+      mode: always
 
 
 logging:
