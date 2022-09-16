@@ -12,8 +12,11 @@ public class AuthCheckInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //String requestURI = request.getRequestURI();
         HttpSession session = request.getSession();
+        String url = request.getRequestURI();
+        if (url.contains("swagger") || url.contains("api-docs") || url.contains("webjars")) {
+            return true;
+        }
 
         if (session == null || session.getAttribute("loginSession") == null) {
             ObjectMapper objectMapper = new ObjectMapper();

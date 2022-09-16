@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -38,13 +37,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
                 .build();
     }
 
-    @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(new AuthCheckInterceptor())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/","/account/login","account/logout","/account/register","/products/**","/swagger-ui/**","/v2/api-docs/**");
-    }
+
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
