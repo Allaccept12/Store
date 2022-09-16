@@ -3,7 +3,6 @@ package com.example.store.account.application;
 
 import com.example.store.account.domain.Account;
 import com.example.store.account.domain.AccountRepository;
-
 import com.example.store.account.domain.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Transactional(readOnly = true)
-    public Account getAccount(Email accountEmail) {
-        return accountRepository.findByEmail(accountEmail)
+    public Account getAccount(String accountEmail) {
+        return accountRepository.findByEmail(Email.of(accountEmail))
                 .orElseThrow(AccountNotFoundException::new);
     }
 }
