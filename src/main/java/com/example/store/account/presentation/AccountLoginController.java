@@ -39,9 +39,9 @@ public class AccountLoginController {
         HttpSession session = request.getSession(false);
         Long accountId = null;
         if (session != null) {
+            accountId = (Long)session.getAttribute("loginSession");
             session.invalidate();
-            accountId = (Long)session.getAttribute("loginSesstion");
         }
-        return ResponseEntity.ok("로그아웃 되었습니다 accountId : " + accountId );
+        return ResponseEntity.ok("logout accountId : " + accountId );
     }
 }
