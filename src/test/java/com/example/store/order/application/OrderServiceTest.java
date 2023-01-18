@@ -1,6 +1,5 @@
 package com.example.store.order.application;
 
-import com.example.store.account.application.AccountService;
 import com.example.store.account.domain.Account;
 import com.example.store.account.domain.AccountRepository;
 import com.example.store.account.domain.Email;
@@ -36,9 +35,7 @@ class OrderServiceTest {
 
     @Autowired
     OrderRepository orderRepository;
-
-    @Autowired
-    AccountService accountService;
+    
 
     @BeforeEach
     void setting() {
